@@ -45,7 +45,7 @@ export default {
             userword: '',
             randword: 'okay',
             i:0,
-            seconds:25,
+            seconds:60,
             countdownStarted:false,
             randwordlist: []
         }
