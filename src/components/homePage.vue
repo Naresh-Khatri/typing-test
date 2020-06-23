@@ -1,62 +1,83 @@
 <template>
-  <div class="hello">
-    <mainComponent
-    v-on:scoreCorrect="increaseScore()"
-    v-on:gameEnded="endgame()"/>
-  <div class="content-box">
-    <div class="text-style" v-if="!this.completed">Score: {{score}}</div>
-    <div class="text-style" v-else>Your Speed is {{score}} WPM <div>Reload page to play again!</div></div>
-    
+  <div>
+    <div class="title">
+     This is a typing practice game
+    </div>
+    <router-link to="/typingPage" class='start-button'>Start Game</router-link>
   </div>
-
-  </div>
+ 
 </template>
 
 <script>
-import mainComponent from './mainComponent.vue';
+ export default {
+   name: 'homePage',
+ }
 
-export default {
-  name: 'homePage',
-  components: { mainComponent },
-  props: {
-  },
-  data() {
-    return{
-      score:0,
-      completed:false
-    }
-  },
-  created(){
-    this.score=0
-  },
-  methods: {
-    increaseScore(){
-      if(!this.completed)
-        this.score++;
-    },
-    endgame(){
-      console.log("the game has ended")
-      this.completed = true
-    }
-  }
-}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.content-box {
-    display: block;
-    margin: 0 auto;
-    padding: 30px;
-    border-radius: 20px;
-    background-color: #581845;
-    box-shadow: 10px 10px 10px black;
-    /*background:linear-gradient(to left , lightgreen, lightseagreen);*/
-    max-width: 1000px;
+.title {
+    position: relative;
+    margin: auto;
+    font-size: 90px;
+    font-family:'Courier New', Courier, monospace;
+    font-weight: bold;
+    text-align: center;
+    padding: 50px;
+    margin-top: 100px;
+    width: 80%;
+    color: white;
+    border-radius: 30px;
+    background: #243441;
+    box-shadow:  30px 30px 60px #18232c, 
+             -30px -30px 60px #304556;
 }
+/* .start-button {
+  position: center;
+  display: block;
+  text-decoration: none;
+  color: white;
+} */
+.start-button {
+    position: relative;   
+    margin: auto;
+    top: 100px;
+    display: block;
+    text-align: center;
+    font-size: 50px;
+    padding: 30px;
+    width: 18%;
+    color: white;
+    border-radius: 30px;
+    text-decoration: none;
+    box-shadow:  30px 30px 60px #18232c, 
+             -30px -30px 60px #304556;
+    transition: 0.3s;
+
+}
+.start-button:hover {
+        background: #243441;
+        box-shadow: 0 5px 15px #18232c;
+}
+.start-button:active {
+  transition: .3s;
+  color: #18232c;
+  opacity: 0;
+  transition: .3s;
+  opacity: 100%;
+}
+.inside-button {
+  text-decoration: none;
+  background: none;
+  border: none;
+  font-size: 60px;
+  color: white;
+}
+
 .text-style{
    text-align: center;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-family:cursive;
     font-size: 70px;
     color: white;
 }

@@ -1,23 +1,22 @@
 <template>
   <div id="app">
-    <homePage/>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import homePage from './components/homePage.vue'
+
 
 export default {
   name: 'App',
-  components: {
-    homePage
-  }
 }
 </script>
 
+
 <style>
 body{
-  background:linear-gradient(to bottom , #FF5733, #581845);
+  /*background:linear-gradient(to bottom , #FF5733, #581845);*/
+  background:#243441;
   background-attachment: fixed;
   
 }

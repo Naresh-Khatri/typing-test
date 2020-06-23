@@ -1,10 +1,12 @@
 <template>
     <div class="bodyy">
+        <router-link to="/" class='back-link'>←home</router-link>
+        <!-- <h6>*Type the word then hit Space*</h6> -->
         <div class="countdown-box" id="2">
             <div class="countdown-text">Time: {{seconds}}</div>
         </div>
         <div class="input-box">
-            <input class="input-field" v-model="userword" id="1" v-on:keydown="countdownStarted=true" v-on:keydown.space="detectspace">
+            <input class="input-field" v-model="userword" ref='search' id="1" v-on:keydown="countdownStarted=true" v-on:keydown.space="detectspace" v-on:keydown.enter="reloadComponent">
         </div>
 
         <div class="content-box">
@@ -23,24 +25,29 @@ export default {
     props: ['content','index'],
     data() {
         return {
-            words: ['about', 'above', 'add', 'after', 'again', 'air', 'all', 'almost', 'along', 'also', 'always', 'America', 'an', 'and', 'animal',
-             'another', 'answer', 'any', 'are', 'around', 'as', 'ask', 'at', 'away', 'back', 'be', 'because', 'been', 'before', 'began', 'begin', 
-             'being', 'below', 'between', 'big', 'book', 'both', 'boy', 'but', 'by', 'call', 'came', 'can', 'car', 'carry', 'change', 'children', 
-             'city', 'close', 'come', 'could', 'country', 'cut', 'day', 'did', 'different', 'do', 'does', "don't", 'down', 'each', 'earth', 'eat', 
-             'end', 'enough', 'even', 'every', 'example', 'eye', 'face', 'family', 'far', 'father', 'feet', 'few', 'find', 'first', 'follow', 'food', 
-             'for', 'form', 'found', 'four', 'from', 'get', 'girl', 'give', 'go', 'good', 'got', 'great', 'group', 'grow', 'had', 'hand', 'hard', 'has', 
-             'have', 'he', 'head', 'hear', 'help', 'her', 'here', 'high', 'him', 'his', 'home', 'house', 'how', 'idea', 'if', 'important', 'in', 'Indian', 
-             'into', 'is', 'it', 'its', "it's", 'just', 'keep', 'kind', 'know', 'land', 'large', 'last', 'later', 'learn', 'leave', 'left', 'let', 
-             'letter', 'life', 'light', 'like', 'line', 'list', 'little', 'live', 'long', 'look', 'made', 'make', 'man', 'many', 'may', 'me', 'mean', 
-             'men', 'might', 'mile', 'miss', 'more', 'most', 'mother', 'mountain', 'move', 'much', 'must', 'my', 'name', 'near', 'need', 'never', 'new',
-             'next', 'night', 'no', 'not', 'now', 'number', 'of', 'off', 'often', 'oil', 'old', 'on', 'once', 'one', 'only', 'open', 'or', 'other', 'our', 
-             'out', 'over', 'own', 'page', 'paper', 'part', 'people', 'picture', 'place', 'plant', 'play', 'point', 'put', 'question', 'quick', 'quickly', 
-             'quite', 'read', 'really', 'right', 'river', 'run', 'said', 'same', 'saw', 'say', 'school', 'sea', 'second', 'see', 'seem', 'sentence', 'set', 
-             'she', 'should', 'show', 'side', 'small', 'so', 'some', 'something', 'sometimes', 'song', 'soon', 'sound', 'spell', 'start', 'state', 'still', 
-             'stop', 'story', 'study', 'such', 'take', 'talk', 'tell', 'than', 'that', 'the', 'their', 'them', 'then', 'there', 'these', 'they', 'thing', 
-             'think', 'this', 'those', 'thought', 'three', 'through', 'time', 'to', 'together', 'too', 'took', 'tree', 'try', 'turn', 'two', 'under', 'until', 
-             'up', 'us', 'use', 'very', 'walk', 'want', 'was', 'watch', 'water', 'way', 'we', 'well', 'went', 'were', 'what', 'when', 'where', 'which', 'while', 
-             'white', 'who', 'why', 'will', 'with', 'without', 'word', 'work', 'world', 'would', 'write', 'year', 'you', 'young', 'your'],
+            words:['America', 'Indian', 'a', 'able', 'about', 'above', 'across', 'add', 'after', 'again', 'air', 'all', 'almost',
+                      'along', 'also', 'always', 'am', 'among', 'an', 'and', 'animal', 'another', 'answer', 'any', 'are', 'around', 'as', 'ask', 'at', 
+                      'away', 'back', 'be', 'because', 'been', 'before', 'began', 'begin', 'being', 'below', 'between', 'big', 'book', 'both', 'boy', 
+                      'but', 'by', 'call', 'came', 'can', 'cannot', 'car', 'carry', 'change', 'children', 'city', 'close', 'come', 'could', 'country',
+                      'cut', 'day', 'dear', 'did', 'different', 'do', 'does', "don't", 'down', 'each', 'earth', 'eat', 'either', 'else', 'end', 'enough',
+                      'even', 'ever', 'every', 'example', 'eye', 'face', 'family', 'far', 'father', 'feet', 'few', 'find', 'first', 'follow', 'food',
+                      'for', 'form', 'found', 'four', 'from', 'get', 'girl', 'give', 'go', 'good', 'got', 'great', 'group', 'grow', 'had', 'hand', 'hard',
+                      'has', 'have', 'he', 'head', 'hear', 'help', 'her', 'here', 'hers', 'high', 'him', 'his', 'home', 'house', 'how', 'however', 'I',
+                      'idea', 'if', 'important', 'in', 'into', 'is', 'it', "it's", 'its', 'just', 'keep', 'kind', 'know', 'land', 'large', 'last', 
+                      'later', 'learn', 'least', 'leave', 'left', 'let', 'letter', 'life', 'light', 'like', 'likely', 'line', 'list', 'little', 'live', 
+                      'long', 'look', 'made', 'make', 'man', 'many', 'may', 'me', 'mean', 'men', 'might', 'mile', 'miss', 'more', 'most', 'mother',
+                      'mountain', 'move', 'much', 'must', 'my', 'name', 'near', 'need', 'neither', 'never', 'new', 'next', 'night', 'no', 'nor', 'not', 
+                      'now', 'number', 'of', 'off', 'often', 'oil', 'old', 'on', 'once', 'one', 'only', 'open', 'or', 'other', 'our', 'out', 'over', 'own',
+                      'page', 'paper', 'part', 'people', 'picture', 'place', 'plant', 'play', 'point', 'put', 'question', 'quick', 'quickly', 'quite',
+                      'rather', 'read', 'really', 'right', 'river', 'run', 'said', 'same', 'saw', 'say', 'says', 'school', 'sea', 'second', 'see', 
+                      'seem', 'sentence', 'set', 'she', 'should', 'show', 'side', 'since', 'small', 'so', 'some', 'something', 'sometimes', 'song', 
+                      'soon', 'sound', 'spell', 'start', 'state', 'still', 'stop', 'story', 'study', 'such', 'take', 'talk', 'tell', 'than', 'that',
+                      'the', 'their', 'them', 'then', 'there', 'these', 'they', 'thing', 'think', 'this', 'those', 'thought', 'three', 'through',
+                      'time', 'to', 'together', 'too', 'took', 'tree', 'try', 'turn', 'two', 'under', 'until', 'up', 'us', 'use', 
+                      'very', 'walk', 'want', 'wants', 'was', 'watch', 'water', 'way', 'we', 'well', 'went', 'were', 'what', 'when', 'where', 
+                      'which', 'while', 'white', 'who', 'whom', 'why', 'will', 'with', 'without', 'word', 'work', 'world', 'would', 'write', 
+                      'year', 'yet', 'you', 'young', 'your']
+,
 
             userword: '',
             randword: 'okay',
@@ -54,7 +61,11 @@ export default {
         // this.genrandword();
         this.generateRandWordList();
         this.SetIntervaal()
-},
+        //this.document.getElementById('1').focus();
+    },
+    mounted(){
+       this.$refs.search.focus();
+    },
     methods: {
         generateRandWordList(){
             for(this.i=0;this.i<10;this.i++){
@@ -74,15 +85,18 @@ export default {
                 this.pushAWordAtLast()
                 this.randwordlist.shift()
                 this.scoreCorrect()
-                document.getElementById("1").style.background ="#ff5733";
+                document.getElementById("1").style.background ="#243441";
+                this.userword =''
             }
             else{
-                document.getElementById("1").style.background="red";
+                document.getElementById("1").style.background="#bd0000";
             }
             
-            this.userword =''
+            
             this.genrandword();
         }, 
+        
+    
         scoreCorrect(){
             this.$emit('scoreCorrect')
         },
@@ -91,12 +105,15 @@ export default {
                 this.seconds--;
             if(this.seconds==0){
                 this.$emit('gameEnded')
-                console.log("gameover")
             }
             if(this.seconds<20 && this.seconds>10)
-                document.getElementById('2').style.background = 'orange'
+                document.getElementById('2').style.background = '#bd6800';
             if(this.seconds<=10)
-            document.getElementById('2').style.background = 'red'
+            {
+                document.getElementById('2').style.background = '#bd0000';
+                document.getElementsByClassName('input-field').disabled = true;
+
+            }
         },
         SetIntervaal(){
             setInterval(this.stopWatch, 1000)
@@ -114,6 +131,8 @@ export default {
     background-color: #900c3f;
     border-radius: 20px;
     max-width: 1000px;
+    background: #243441;
+   
 }
 .content-box {
     display: block;
@@ -122,6 +141,8 @@ export default {
     border-radius: 20px;
     background-color: #900c3f;
     max-width: 1000px;
+    background: #243441;
+    
 }
 .text-style{
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
@@ -135,8 +156,9 @@ export default {
     color: white;
     background: #ffc300;
     border-radius: 20px;
-    box-shadow: 10px 10px 5px black;
-    transition: all 0.3s ease 0s;
+    background: #243441;
+    box-shadow:  30px 30px 60px #18232c, 
+             -30px -30px 60px #304556;
 }
 .button-style {
   position: absolute;
@@ -157,20 +179,18 @@ export default {
 .input-field{
     position: relative;
     top: 10px;
-    color: aqua;
-    background: none;
     border: none;
     border-radius: 20px;
     display: block;
     top: 10px;
     margin: auto;
     text-align: center;
-    color:white;
     font-size: 50px;
     border-radius: 20px;
     padding: 10px;
-    background-color: #ff5733;
-    box-shadow: 10px 10px 10px black;
+    color: white;
+    background: #243441;
+    border: .5px solid grey;
 }
 .countdown-box {
     position: relative;
@@ -181,12 +201,42 @@ export default {
     transition: all 1s ease-in-out;
     max-width: 200px;
     max-height: 100px;
-    box-shadow: 10px 10px 10px black;
+    background: #243441;
+    box-shadow:  30px 30px 60px #18232c, 
+             -30px -30px 60px #304556;
 }
 .countdown-text{
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-size: 40px;
     color: white
     
+}
+h6{
+    position: absolute;
+    top: -50px;
+    color: white;
+    font-size: 20px;
+}
+.back-link {
+    position: absolute;
+    margin-left: -250px;
+    font-size: 50px;
+    padding: 30px;
+    width: 18%;
+    color: white;
+    border-radius: 30px;
+    text-decoration: none;
+    border: none;
+    background: #243441;
+    box-shadow:  30px 30px 60px #18232c, 
+             -30px -30px 60px #304556;
+        transition: all 0.3s ease 0s;
+
+}
+.back-link:hover {
+        background: #243441;
+        box-shadow: 0 5px 15px #18232c;
+        transition: all 0.3s ease 0s;
+
 }
 </style>
